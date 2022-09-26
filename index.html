@@ -43,38 +43,58 @@
 
 <div class="right-section">
   <div>
-    <p>
+    <p class="input-description">
       CARDHOLDER NAME
     </p>
 
     <input type="text" id="cardholder-name-input" placeholder="e.g Jane Appleseed">
+
+    <p class="error-info">
+      xd
+    </p>
   </div>
 
   <div>
-    <p>
+    <p class="input-description">
       CARD NUMBER
     </p>
 
-    <input type="text" id="card-number-input" placeholder="e.g. 1234 5678 9123 0000">
+    <input type="text" id="card-number-input" placeholder="e.g. 1234 5678 9123 0000" maxlength="19">
+    <p class="error-info">
+      xd
+    </p>
   </div>
 
-  <div style="display: flex">
-      <div>
-        <p>
-          EXP. DATE (MM/YY)
+  <div>
+    <div style="display: flex">
+        <div style="margin-left: 7px">
+          <p class="input-description">
+            EXP. DATE (MM/YY)
+          </p>
+
+          <input type="text" id="expiry-date-month-input" placeholder="MM" maxlength="2">
+          <input type="text" id="expiry-date-year-input" placeholder="YY" maxlength="2">
+
+          <p class="error-info" >
+            xds
+          </p>
+
+        </div>
+
+
+      <div style="width: 9rem">
+        <p style="margin-left: .7rem;" class="input-description">
+          CVC
         </p>
 
-        <input type="text" id="expiry-date-month-input" placeholder="MM">
-        <input type="text" id="expiry-date-year-input" placeholder="YY">
+        <input type="text" id="cvc-input" placeholder="e.g 123" maxlength="3">
+
+        <p class="error-info" style="margin-left: 1rem;" id="cvc-error">
+          xd
+        </p>
       </div>
+  </div>
 
-    <div>
-      <p style="margin-left: .7rem;">
-        CVC
-      </p>
-
-      <input type="text" id="cvc-input" placeholder="e.g 123">
-    </div>
 
   </div>
 

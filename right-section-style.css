@@ -10,14 +10,15 @@ input::placeholder {
     color: var(--lightGrayishViolet);
 }
 input:focus {
-    border: 1px solid var(--darkGrayishViolet);
+    border: 1px solid;
+    border-image: var(--primary-linear-gradient);
 }
 #expiry-date-month-input, #expiry-date-year-input {
     width: 2rem;
     margin-right: .3rem;
 }
 #cvc-input {
-    width: 5.3rem;
+    width: 5.45rem;
     margin-left: .7rem;
 
 }
@@ -28,10 +29,10 @@ input:focus {
     align-items: center;
     justify-content: center;
 }
-.right-section p {
+.input-description {
     color: var(--veryDarkViolet);
     font-size: 14px;
-    margin: 1.5rem 0 .5rem 0;
+    margin: 1rem 0 .5rem 0;
 }
 #confirm-button {
     margin-top: 2.5rem;
@@ -40,4 +41,12 @@ input:focus {
     color: var(--white);
     padding: .8rem 7.5rem;
     border-radius: .6rem;
+}
+.error-info {
+    font-size: 13px;
+    margin-top: .5rem;
+    color: var(--red);
+    white-space: nowrap;
+
+    display: none;
 }
