@@ -18,12 +18,21 @@
     <p id="card-number">
       0000 0000 0000 0000
     </p>
-    <p id="caldholder-name">
-      JANE APPLESED
-    </p>
-    <p id="expiry-date">
-      00/00
-    </p>
+    <div class="data-container">
+      <p id="cardholder-name">
+        JANE APPLESED
+      </p>
+      <p id="expiry-date">
+        <span id="expiry-month">
+          00
+        </span>
+        /
+        <span id="expiry-year">
+          00
+        </span>
+      </p>
+    </div>
+
   </div>
   <div class="card-back">
     <p id="cvc">
@@ -75,6 +84,9 @@
   <button id="confirm-button">
     Confirm
   </button>
+
+  <script src="app.js"></script>
+
 
 </div>
 </body>
