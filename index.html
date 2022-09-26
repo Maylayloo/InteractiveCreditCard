@@ -3,8 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <title>Interactive Card Details</title>
+  <link rel="stylesheet" href="general.css">
+  <link rel="stylesheet" href="left-section-style.css">
+  <link rel="stylesheet" href="right-section-style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="left-section">
+  <div class="card-front">
+    <img id="card-logo" src="images/card-logo.svg" alt="">
+    <p id="card-number">
+      0000 0000 0000 0000
+    </p>
+    <p id="caldholder-name">
+      JANE APPLESED
+    </p>
+    <p id="expiry-date">
+      00/00
+    </p>
+  </div>
+  <div class="card-back">
+    <p id="cvc">
+      000
+    </p>
+  </div>
+</div>
 
+<div class="right-section">
+  <div>
+    <p>
+      CARDHOLDER NAME
+    </p>
+
+    <input type="text" id="cardholder-name-input" placeholder="e.g Jane Appleseed">
+  </div>
+
+  <div>
+    <p>
+      CARD NUMBER
+    </p>
+
+    <input type="text" id="card-number-input" placeholder="e.g. 1234 5678 9123 0000">
+  </div>
+
+  <div style="display: flex">
+      <div>
+        <p>
+          EXP. DATE (MM/YY)
+        </p>
+
+        <input type="text" id="expiry-date-month-input" placeholder="MM">
+        <input type="text" id="expiry-date-year-input" placeholder="YY">
+      </div>
+
+    <div>
+      <p style="margin-left: .7rem;">
+        CVC
+      </p>
+
+      <input type="text" id="cvc-input" placeholder="e.g 123">
+    </div>
+
+  </div>
+
+  
+
+
+  <button id="confirm-button">
+    Confirm
+  </button>
+
+</div>
 </body>
 </html>

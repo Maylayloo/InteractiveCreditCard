@@ -1,0 +1,22 @@
+:root {
+        --primary-linear-gradien: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+        --white: hsl(0, 0%, 100%);
+        --lightGrayishViolet: hsl(270, 3%, 87%);
+        --darkGrayishViolet: hsl(279, 6%, 55%);
+        --veryDarkViolet: hsl(278, 68%, 11%);
+}
+
+*, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 18px;
+}
+input:focus {
+        outline: none;
+}
+
+body {
+        display: flex;
+        height: 100vh;
+}

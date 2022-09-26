@@ -1,0 +1,58 @@
+.left-section {
+    background-image: url("images/bg-main-desktop.png");
+    width: 483px;
+
+
+}
+.card-front, .card-back {
+    border-radius: .7rem;
+    box-shadow: 0 0 5rem rgba(0, 0, 0, .3);
+    width: 447px;
+    height: 245px;
+}
+
+.card-front {
+    background-image: url("images/bg-card-front.png");
+    position: absolute;
+    top: 10rem;
+    left: 9rem;
+    color: var(--white);
+}
+#card-logo {
+    display: block;
+    margin: 1.6rem;
+}
+#card-number {
+    margin: 3.5rem 0 0 1.6rem;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+#caldholder-name {
+    margin: 1.4rem 0 0 1.6rem;
+    display: inline-block;
+    font-size: 14px;
+}
+#expiry-date {
+    display: inline-block;
+    margin-left: 12.2rem;
+    font-size: 16px;
+}
+
+.card-back {
+    background-image: url("images/bg-card-back.png");
+    position: absolute;
+    bottom: 10rem;
+    left: 14.5rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#cvc {
+    margin-left: 17rem;
+    margin-bottom: .2rem;
+    letter-spacing: 2px;
+    font-size: 16px;
+    color: white;
+}
