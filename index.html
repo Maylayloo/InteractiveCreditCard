@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="general.css">
   <link rel="stylesheet" href="left-section-style.css">
   <link rel="stylesheet" href="right-section-style.css">
+  <link rel="stylesheet" href="accepted-section-style.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +42,7 @@
   </div>
 </div>
 
-<div class="right-section">
+<div id="right-section">
   <div>
     <p class="input-description">
       CARDHOLDER NAME
@@ -49,8 +50,8 @@
 
     <input type="text" id="cardholder-name-input" placeholder="e.g Jane Appleseed">
 
-    <p class="error-info">
-      xd
+    <p class="error-info" id="cardholder-error">
+      cardholder-name-error
     </p>
   </div>
 
@@ -60,8 +61,8 @@
     </p>
 
     <input type="text" id="card-number-input" placeholder="e.g. 1234 5678 9123 0000" maxlength="19">
-    <p class="error-info">
-      xd
+    <p class="error-info" id="card-number-error">
+      card-number-error
     </p>
   </div>
 
@@ -75,8 +76,11 @@
           <input type="text" id="expiry-date-month-input" placeholder="MM" maxlength="2">
           <input type="text" id="expiry-date-year-input" placeholder="YY" maxlength="2">
 
-          <p class="error-info" >
-            xds
+          <p class="error-info" id="expiry-error-month">
+            expiry-error-month
+          </p>
+          <p class="error-info" id="expiry-error-year">
+            expiry-error-year
           </p>
 
         </div>
@@ -90,7 +94,7 @@
         <input type="text" id="cvc-input" placeholder="e.g 123" maxlength="3">
 
         <p class="error-info" style="margin-left: 1rem;" id="cvc-error">
-          xd
+          cvc-error
         </p>
       </div>
   </div>
@@ -105,9 +109,19 @@
     Confirm
   </button>
 
-  <script src="app.js"></script>
+
 
 
 </div>
+
+<div id="acceptedSection">
+  <img src="images/icon-complete.svg" alt="">
+  <h1>THANK YOU</h1>
+  <p>We've added your card details</p>
+  <button class="continue-button">continue</button>
+
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

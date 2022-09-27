@@ -22,12 +22,14 @@ input:focus {
     margin-left: .7rem;
 
 }
-.right-section {
+#right-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 5;
+    transition: opacity 1s;
 }
 .input-description {
     color: var(--veryDarkViolet);
@@ -49,4 +51,8 @@ input:focus {
     white-space: nowrap;
 
     display: none;
+}
+#expiry-error-year {
+    position: absolute;
+    margin-top: -17px;
 }
