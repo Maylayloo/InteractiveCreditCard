@@ -36,7 +36,7 @@ input:focus {
     font-size: 14px;
     margin: 1rem 0 .5rem 0;
 }
-#confirm-button {
+#confirm-button, #continue-button {
     margin-top: 2.5rem;
     border: none;
     background: var(--veryDarkViolet);

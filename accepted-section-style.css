@@ -11,4 +11,20 @@
     z-index: 2;
     opacity: 0;
     transition: opacity 1.5s;
+    gap: 1rem;
+}
+#acceptedSection h1 {
+    font-size: 32px;
+    font-weight: normal;
+    margin-top: 1rem;
+    color: var(--veryDarkViolet)
+}
+#acceptedSection p {
+    color: var(--darkGrayishViolet);
+}
+#continue-button {
+    /*          Style is in the right-section-style.css (same as #confirm-button)         */
+
+    margin: 1.5rem 0 0 0;
+
 }
