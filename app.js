@@ -23,20 +23,61 @@ let confirmButton = document.getElementById("confirm-button");
 let rightSection = document.getElementById("right-section");
 let acceptedSection = document.getElementById("acceptedSection");
 
-let isOkay = false;
+let continueButton = document.getElementById("continue-button");
 
-function isInputValueBlank(input, errorMessage) {
-     if (input.value.replaceAll(" ", "") === "") {
-          errorMessage.style.display = "block";
-          errorMessage.innerHTML = "Can't be blank";
-     }
+let isCVCOkay = false;
+let isCardNumberOkay = false;
+let isCardHolderOkay = false;
+
+
+let baseCardValues = {
+     cardNumber: "0000 0000 0000 0000",
+     cardHolder: "JANE APPLESED",
+     cardExpiryMonth: "00",
+     cardExpiryYear: "00",
+     cardCVC: "000"
 }
 
-function errorHandlingForExpAndCVC(errorMessage, input, onCardData, inputMaxLength, baseValue) {
+
+function isOkay() {
+     return isCVCOkay && isCardHolderOkay && isCardNumberOkay;
+}
+
+function initBaseCardValues() {
+     onCardCardNumber.innerHTML = baseCardValues.cardNumber;
+     onCardCardholder.innerHTML = baseCardValues.cardHolder;
+     onCardExpiryMonth.innerHTML = baseCardValues.cardExpiryMonth;
+     onCardExpiryYear.innerHTML = baseCardValues.cardExpiryYear;
+     onCardCVC.innerHTML = baseCardValues.cardCVC;
+}
+function changeScenes(fromSection, toSection) {
+     fromSection.style.opacity = '0';
+     fromSection.style.zIndex = '2';
+     toSection.style.zIndex = '5';
+     toSection.style.opacity = '1';
+
+}
+
+function showError(error, errorMessage) {
+     error.style.display = "block";
+     error.innerHTML = errorMessage;
+}
+
+function cardholderNameErrorHandling(error) {
+     if (cardholderInput.value.replaceAll(" ", "") === "") {
+          showError(error, "Can't be blank");
+
+          onCardCardholder.innerHTML = baseCardValues.cardHolder;
+     }
+     else
+          isCardHolderOkay = true;
+}
+
+function cvcErrorHandling(errorMessage, input, onCardData, inputMaxLength, baseValue) {
      if (input.value.length === inputMaxLength && !isNaN(input.value) && !/\s/.test(input.value)) {
           errorMessage.style.display = "none";
           onCardData.innerHTML = input.value;
-          isOkay = true;
+          isCVCOkay = true;
      }
 
 
@@ -62,34 +103,54 @@ function errorHandlingForExpAndCVC(errorMessage, input, onCardData, inputMaxLeng
 }
 
 
+initBaseCardValues();
 
 confirmButton.addEventListener("click", function() {
      onCardCardholder.innerHTML = cardholderInput.value.toUpperCase();
 
+     isCVCOkay = false;
+     isCardNumberOkay = false;
+     isCardHolderOkay = false;
+
      let temporaryCardNumber = cardNumberInput.value.replaceAll(" ", "");
-     let formattedCardNumber = "";
-     for (let i = 0; i <= 12; i+=4) {
-          formattedCardNumber += temporaryCardNumber.slice(i, i+4) + " ";
+     if (temporaryCardNumber.length === 0) {
+          showError(cardNumberErrorMessage, "Can't be blank")
+     }
+     else if (temporaryCardNumber.length < 16) {
+          showError(cardNumberErrorMessage, "Can't contain spaces or be less than 16 digits");
+     }
+     else if (isNaN(Number(cardNumberInput.value))) {
+          showError(cardNumberErrorMessage, "Wrong format, numbers only");
+     }
+     else {
+          let formattedCardNumber = "";
+          for (let i = 0; i <= 12; i+=4) {
+               formattedCardNumber += temporaryCardNumber.slice(i, i+4) + " ";
+          }
+
+          onCardCardNumber.innerHTML = formattedCardNumber;
+          isCardNumberOkay = true;
      }
 
-     onCardCardNumber.innerHTML = formattedCardNumber;
 
      onCardExpiryMonth.innerHTML = expiryMonthInput.value;
      onCardExpiryYear.innerHTML = expiryYearInput.value;
 
-     errorHandlingForExpAndCVC(cvcErrorMessage, cvcInput, onCardCVC, 3, "000");
+     cvcErrorHandling(cvcErrorMessage, cvcInput, onCardCVC, 3, "000");
 
-     isInputValueBlank(cardholderInput, cardHolderErrorMessage);
-     isInputValueBlank(cardNumberInput, cardNumberErrorMessage);
+     cardholderNameErrorHandling(cardHolderErrorMessage);
+     // isInputValueBlank(cardNumberInput, cardNumberErrorMessage);
 
-     if (isOkay)
+     if (isOkay())
      {
-          acceptedSection.style.opacity = '1';
-          acceptedSection.style.zIndex = '15';
-          rightSection.style.zIndex = '-1';
-          rightSection.style.opacity = '0';
+          changeScenes(rightSection, acceptedSection);
      }
 
 
 
+})
+
+continueButton.addEventListener("click", function() {
+     initBaseCardValues();
+     changeScenes(acceptedSection, rightSection);
 })

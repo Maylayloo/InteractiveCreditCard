@@ -10,7 +10,7 @@
     flex-direction: column;
     z-index: 2;
     opacity: 0;
-    transition: opacity 1.5s;
+    transition: opacity .8s;
     gap: 1rem;
 }
 #acceptedSection h1 {
