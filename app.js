@@ -39,6 +39,20 @@ let baseCardValues = {
 }
 
 
+function resetALlInputs() {
+     cardNumberInput.value = ""
+     cardholderInput.value = ""
+     expiryMonthInput.value = ""
+     expiryYearInput.value = ""
+     cvcInput.value = ""
+}
+
+function restartOkayValues() {
+     isCVCOkay = false;
+     isCardNumberOkay = false;
+     isCardHolderOkay = false;
+}
+
 function isOkay() {
      return isCVCOkay && isCardHolderOkay && isCardNumberOkay;
 }
@@ -63,18 +77,62 @@ function showError(error, errorMessage) {
      error.innerHTML = errorMessage;
 }
 
+function hideError(error) {
+     error.style.display = "none";
+}
+
+function doesContainE(string) {// Had to do this, because for example 111e9 is still a number
+      return string.includes("e");
+
+}
+
+
+
+
 function cardholderNameErrorHandling(error) {
      if (cardholderInput.value.replaceAll(" ", "") === "") {
           showError(error, "Can't be blank");
 
           onCardCardholder.innerHTML = baseCardValues.cardHolder;
+          cardholderInput.value = "";
      }
-     else
+     else {
+          onCardCardholder.innerHTML = cardholderInput.value.toUpperCase();
           isCardHolderOkay = true;
+          hideError(error);
+     }
+
+}
+
+function cardNumberErrorHandling() {
+     let temporaryCardNumber = cardNumberInput.value.replaceAll(" ", "");
+     if (temporaryCardNumber.length === 0) {
+          showError(cardNumberErrorMessage, "Can't be blank")
+          cardNumberInput.value = "";
+     }
+     else if (temporaryCardNumber.length < 16) {
+          showError(cardNumberErrorMessage, "Can't contain spaces or be less than 16 digits");
+          cardNumberInput.value = "";
+     }
+     else if (isNaN(Number(cardNumberInput.value)) || doesContainE(cardNumberInput.value)) {
+          showError(cardNumberErrorMessage, "Wrong format, numbers only");
+          cardNumberInput.value = "";
+     }
+     else {
+          let formattedCardNumber = "";
+          for (let i = 0; i <= 12; i+=4) {
+               formattedCardNumber += temporaryCardNumber.slice(i, i+4) + " ";
+          }
+
+          onCardCardNumber.innerHTML = formattedCardNumber;
+          hideError(cardNumberErrorMessage);
+
+          isCardNumberOkay = true;
+     }
 }
 
 function cvcErrorHandling(errorMessage, input, onCardData, inputMaxLength, baseValue) {
-     if (input.value.length === inputMaxLength && !isNaN(input.value) && !/\s/.test(input.value)) {
+     if (input.value.length === inputMaxLength && !isNaN(Number(input.value)) && !/\s/.test(input.value) && !doesContainE(input.value)) {
           errorMessage.style.display = "none";
           onCardData.innerHTML = input.value;
           isCVCOkay = true;
@@ -85,14 +143,13 @@ function cvcErrorHandling(errorMessage, input, onCardData, inputMaxLength, baseV
           errorMessage.style.display = "block";
           onCardData.innerHTML = baseValue;
 
-          if (input.value === "") {
+          if (input.value === "")
                errorMessage.innerHTML = "Can't be blank";
-          }
 
           else if (input.value.length !== inputMaxLength)
                errorMessage.innerHTML = "Wrong format, 3 digits";
 
-          else if (isNaN(input.value))
+          else if (isNaN(Number(input.value)) || doesContainE(input.value))
                errorMessage.innerHTML = "Wrong format, numbers only";
 
           else if (/\s/.test(input.value))
@@ -103,43 +160,17 @@ function cvcErrorHandling(errorMessage, input, onCardData, inputMaxLength, baseV
 }
 
 
+
 initBaseCardValues();
 
+
 confirmButton.addEventListener("click", function() {
-     onCardCardholder.innerHTML = cardholderInput.value.toUpperCase();
 
-     isCVCOkay = false;
-     isCardNumberOkay = false;
-     isCardHolderOkay = false;
-
-     let temporaryCardNumber = cardNumberInput.value.replaceAll(" ", "");
-     if (temporaryCardNumber.length === 0) {
-          showError(cardNumberErrorMessage, "Can't be blank")
-     }
-     else if (temporaryCardNumber.length < 16) {
-          showError(cardNumberErrorMessage, "Can't contain spaces or be less than 16 digits");
-     }
-     else if (isNaN(Number(cardNumberInput.value))) {
-          showError(cardNumberErrorMessage, "Wrong format, numbers only");
-     }
-     else {
-          let formattedCardNumber = "";
-          for (let i = 0; i <= 12; i+=4) {
-               formattedCardNumber += temporaryCardNumber.slice(i, i+4) + " ";
-          }
-
-          onCardCardNumber.innerHTML = formattedCardNumber;
-          isCardNumberOkay = true;
-     }
-
-
-     onCardExpiryMonth.innerHTML = expiryMonthInput.value;
-     onCardExpiryYear.innerHTML = expiryYearInput.value;
+     restartOkayValues();
 
      cvcErrorHandling(cvcErrorMessage, cvcInput, onCardCVC, 3, "000");
-
      cardholderNameErrorHandling(cardHolderErrorMessage);
-     // isInputValueBlank(cardNumberInput, cardNumberErrorMessage);
+     cardNumberErrorHandling();
 
      if (isOkay())
      {
@@ -153,4 +184,5 @@ confirmButton.addEventListener("click", function() {
 continueButton.addEventListener("click", function() {
      initBaseCardValues();
      changeScenes(acceptedSection, rightSection);
+     resetALlInputs();
 })
