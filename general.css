@@ -1,5 +1,6 @@
 :root {
         --primary-linear-gradient: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%)) 1 .5rem;
+        --test-linear-gradient: linear-gradient(#000000, #ffffff) 1 .5rem;
         --white: hsl(0, 0%, 100%);
         --lightGrayishViolet: hsl(270, 3%, 87%);
         --darkGrayishViolet: hsl(279, 6%, 55%);

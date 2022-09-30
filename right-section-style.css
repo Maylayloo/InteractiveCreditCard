@@ -10,8 +10,7 @@ input::placeholder {
     color: var(--lightGrayishViolet);
 }
 input:focus {
-    border: 1px solid;
-    border-image: var(--primary-linear-gradient);
+    border: hsl(278, 94%, 30%) 1px solid;
 }
 #expiry-date-month-input, #expiry-date-year-input {
     width: 2rem;

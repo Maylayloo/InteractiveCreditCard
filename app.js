@@ -11,6 +11,7 @@ let onCardExpiryMonth = document.getElementById("expiry-month");
 
 let expiryYearInput = document.getElementById("expiry-date-year-input");
 let onCardExpiryYear = document.getElementById("expiry-year")
+
 let expiryErrorMonthMessage = document.getElementById("expiry-error-month");
 let expiryErrorYearMessage = document.getElementById("expiry-error-year");
 
@@ -28,6 +29,8 @@ let continueButton = document.getElementById("continue-button");
 let isCVCOkay = false;
 let isCardNumberOkay = false;
 let isCardHolderOkay = false;
+let isExpiryMonthOkay = false;
+let isExpiryYearOkay = false
 
 
 let baseCardValues = {
@@ -51,10 +54,12 @@ function restartOkayValues() {
      isCVCOkay = false;
      isCardNumberOkay = false;
      isCardHolderOkay = false;
+     isExpiryMonthOkay = false;
+     isExpiryYearOkay = false;
 }
 
 function isOkay() {
-     return isCVCOkay && isCardHolderOkay && isCardNumberOkay;
+     return isCVCOkay && isCardHolderOkay && isCardNumberOkay && isExpiryMonthOkay && isExpiryYearOkay;
 }
 
 function initBaseCardValues() {
@@ -71,7 +76,6 @@ function changeScenes(fromSection, toSection) {
      toSection.style.opacity = '1';
 
 }
-
 function showError(error, errorMessage) {
      error.style.display = "block";
      error.innerHTML = errorMessage;
@@ -95,10 +99,13 @@ function cardholderNameErrorHandling(error) {
 
           onCardCardholder.innerHTML = baseCardValues.cardHolder;
           cardholderInput.value = "";
+          cardholderInput.style.borderColor = "var(--red)";
      }
      else {
           onCardCardholder.innerHTML = cardholderInput.value.toUpperCase();
           isCardHolderOkay = true;
+          cardholderInput.style.borderColor = "var(--lightGrayishViolet)";
+
           hideError(error);
      }
 
@@ -109,14 +116,17 @@ function cardNumberErrorHandling() {
      if (temporaryCardNumber.length === 0) {
           showError(cardNumberErrorMessage, "Can't be blank")
           cardNumberInput.value = "";
+          cardNumberInput.style.borderColor = "var(--red)";
      }
      else if (temporaryCardNumber.length < 16) {
           showError(cardNumberErrorMessage, "Can't contain spaces or be less than 16 digits");
           cardNumberInput.value = "";
+          cardNumberInput.style.borderColor = "var(--red)";
      }
      else if (isNaN(Number(cardNumberInput.value)) || doesContainE(cardNumberInput.value)) {
           showError(cardNumberErrorMessage, "Wrong format, numbers only");
           cardNumberInput.value = "";
+          cardNumberInput.style.borderColor = "var(--red)";
      }
      else {
           let formattedCardNumber = "";
@@ -126,6 +136,7 @@ function cardNumberErrorHandling() {
 
           onCardCardNumber.innerHTML = formattedCardNumber;
           hideError(cardNumberErrorMessage);
+          cardNumberInput.style.borderColor = "var(--lightGrayishViolet)";
 
           isCardNumberOkay = true;
      }
@@ -135,11 +146,15 @@ function cvcErrorHandling(errorMessage, input, onCardData, inputMaxLength, baseV
      if (input.value.length === inputMaxLength && !isNaN(Number(input.value)) && !/\s/.test(input.value) && !doesContainE(input.value)) {
           errorMessage.style.display = "none";
           onCardData.innerHTML = input.value;
+          input.style.borderColor = "var(--lightGrayishViolet)";
+
           isCVCOkay = true;
+
      }
 
 
      else {
+          input.style.borderColor = "var(--red)";
           errorMessage.style.display = "block";
           onCardData.innerHTML = baseValue;
 
