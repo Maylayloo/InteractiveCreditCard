@@ -12,8 +12,8 @@ let onCardExpiryMonth = document.getElementById("expiry-month");
 let expiryYearInput = document.getElementById("expiry-date-year-input");
 let onCardExpiryYear = document.getElementById("expiry-year")
 
-let expiryErrorMonthMessage = document.getElementById("expiry-error-month");
-let expiryErrorYearMessage = document.getElementById("expiry-error-year");
+let expiryDateErrorMessage = document.getElementById("expiry-error-month");
+
 
 let cvcInput = document.getElementById("cvc-input");
 let onCardCVC = document.getElementById("cvc");
@@ -174,6 +174,65 @@ function cvcErrorHandling(errorMessage, input, onCardData, inputMaxLength, baseV
      }
 }
 
+function expiryDateErrorHandling() {
+     if (expiryMonthInput.value > 12) {
+          hideError(expiryDateErrorMessage);
+
+          showError(expiryDateErrorMessage, "Wrong format")
+          expiryMonthInput.style.borderColor = "var(--red)"
+     }
+     else if (expiryMonthInput.value.replaceAll(" ", "").length < 2 || expiryYearInput.value.replaceAll(" ", "").length < 2) {
+
+          hideError(expiryDateErrorMessage);
+          expiryYearInput.style.borderColor = "var(--lightGrayishViolet)"
+          expiryMonthInput.style.borderColor = "var(--lightGrayishViolet)"
+
+          if (expiryMonthInput.value.replaceAll(" ", "").length < 2) {
+
+               showError(expiryDateErrorMessage, "Can't be blank")
+               expiryMonthInput.style.borderColor = "var(--red)"
+
+          }
+          if (expiryYearInput.value.replaceAll(" ", "").length < 2) {
+
+               showError(expiryDateErrorMessage, "Can't be blank")
+               expiryYearInput.style.borderColor = "var(--red)"
+          }
+
+     }
+     else if (
+         (isNaN(Number(expiryMonthInput.value)) || doesContainE(expiryMonthInput.value))
+         ||
+         (isNaN(Number(expiryYearInput.value)) || doesContainE(expiryYearInput.value))) {
+
+          hideError(expiryDateErrorMessage);
+          expiryYearInput.style.borderColor = "var(--lightGrayishViolet)"
+          expiryMonthInput.style.borderColor = "var(--lightGrayishViolet)"
+
+          if (isNaN(Number(expiryMonthInput.value)) || doesContainE(expiryMonthInput.value)) {
+               showError(expiryDateErrorMessage, "Wrong format, numbers only")
+               expiryMonthInput.style.borderColor = "var(--red)"
+          }
+          if (isNaN(Number(expiryYearInput.value)) || doesContainE(expiryYearInput.value)) {
+               showError(expiryDateErrorMessage, "Wrong format, numbers only")
+               expiryYearInput.style.borderColor = "var(--red)"
+          }
+
+     }
+
+     else {
+          expiryYearInput.style.borderColor = "var(--lightGrayishViolet)"
+          expiryMonthInput.style.borderColor = "var(--lightGrayishViolet)"
+          hideError(expiryDateErrorMessage);
+          onCardExpiryMonth.innerHTML = expiryMonthInput.value;
+          onCardExpiryYear.innerHTML = expiryYearInput.value;
+
+          isExpiryMonthOkay = true;
+          isExpiryYearOkay = true;
+     }
+}
+
+
 
 
 initBaseCardValues();
@@ -186,6 +245,9 @@ confirmButton.addEventListener("click", function() {
      cvcErrorHandling(cvcErrorMessage, cvcInput, onCardCVC, 3, "000");
      cardholderNameErrorHandling(cardHolderErrorMessage);
      cardNumberErrorHandling();
+     expiryDateErrorHandling();
+
+
 
      if (isOkay())
      {
